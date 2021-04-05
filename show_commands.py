@@ -2,7 +2,6 @@
 
 import paramiko
 import sys
-from pprint import pprint
 
 host = sys.argv[1]
 cmd = input('Type the command to send: ')
@@ -14,7 +13,9 @@ ssh_client.connect(host,username='wquizhpi',password='cisco',look_for_keys=False
 stdin,stdout,stderr=ssh_client.exec_command(cmd)
 
 output = stdout.readlines()
-pprint(output)
+for items in output:
+    items = items.strip("\r\n")
+    print(items)
 
 ssh_client.close()
 
