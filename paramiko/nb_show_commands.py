@@ -41,8 +41,6 @@ for ports in port_dict.keys():
     cmd = 'show interface ' + ports + ' | in crc|err|connected'
     cmd_list.append(cmd)
 
-ssh_conn = initConn(host)
-
 for command in cmd_list:
     ssh_conn = initConn(host)
     output = sendcmd(ssh_conn,command)
