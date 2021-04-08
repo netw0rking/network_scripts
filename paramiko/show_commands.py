@@ -2,21 +2,23 @@
 
 import paramiko
 import sys
+import os
 
 host = sys.argv[1]
+username = os.getenv('USER')
 cmd = input('Type the command to send: ')
 
-def initConn(x):
+def initConn(x,username):
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh_client.connect(x,username='wquizhpi',password='cisco',look_for_keys=False)
+    ssh_client.connect(x,username=username,password='cisco',look_for_keys=False)
     return ssh_client
 
 def sendcmd(sshHost,command):
     stdin,stdout,stderr=sshHost.exec_command(command)
     return stdout
 
-ssh_conn = initConn(host)
+ssh_conn = initConn(host,username)
 
 output = sendcmd(ssh_conn,cmd)
 

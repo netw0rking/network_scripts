@@ -2,9 +2,10 @@ from netmiko import ConnectHandler
 import pynetbox
 import sys
 from pprint import pprint
+import os
 
-def netmiko_connect(host):
-    net_conn = ConnectHandler(device_type='cisco_ios', host=host, username='wquizhpi', password='cisco') 
+def netmiko_connect(host,username):
+    net_conn = ConnectHandler(device_type='cisco_ios', host=host, username=username, password='cisco') 
     return net_conn
 
 def active_int(host):
@@ -17,6 +18,7 @@ def active_int(host):
 
 nb = pynetbox.api(url='http://100.64.1.226:8000', token='a11c6850a273edcdaccbab6d71f9fc0c2786e900')
 host = sys.argv[1]
+username = os.getenv('USER')
 
 intf_list = active_int(host)
 
@@ -35,7 +37,7 @@ for ports in port_dict.keys():
     cmd_list.append(cmd)
 
 for command in cmd_list:
-    net_conn = netmiko_connect(host)
+    net_conn = netmiko_connect(host,username)
     output = net_conn.send_command(command,use_textfsm=True)
     pprint(output)
     net_conn.disconnect()

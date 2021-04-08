@@ -1,15 +1,16 @@
 import pynetbox
 import paramiko
+import os
 import sys
 
 nb = pynetbox.api(url='http://100.64.1.226:8000', token='a11c6850a273edcdaccbab6d71f9fc0c2786e900')
-
+username = os.getenv('USER')
 host = sys.argv[1]
 
-def initConn(x):
+def initConn(x,username):
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh_client.connect(x,username='wquizhpi',password='cisco',look_for_keys=False)
+    ssh_client.connect(x,username=username,password='cisco',look_for_keys=False)
     return ssh_client
 
 def sendcmd(sshHost,command):
@@ -42,7 +43,7 @@ for ports in port_dict.keys():
     cmd_list.append(cmd)
 
 for command in cmd_list:
-    ssh_conn = initConn(host)
+    ssh_conn = initConn(host,username)
     output = sendcmd(ssh_conn,command)
     for items in output:
         items = items.strip("\r\n")
