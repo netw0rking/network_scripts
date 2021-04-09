@@ -49,5 +49,7 @@ for command in cmd_list:
             print('Configuring this ' + new_desc +' on ' + host)
             desc_out = net_conn.send_config_set(config_list)
             print(desc_out)
+        else:
+            print('Interface description is configured on port ' + items['interface'])
     net_conn.disconnect()
 
