@@ -33,11 +33,23 @@ for i in range(len(intf_list)):
 
 cmd_list = []
 for ports in port_dict.keys():
-    cmd = 'show interface ' + ports 
+    cmd = 'show interface ' + ports
     cmd_list.append(cmd)
 
 for command in cmd_list:
     net_conn = netmiko_connect(host,username)
     output = net_conn.send_command(command,use_textfsm=True)
-    pprint(output)
+    for items in output:
+        if 'BB' not in items['description']:
+            intf = (items['interface'])
+            config_list = []
+            config_list.append('interface ' + intf)
+            new_desc = 'description BB: ' + port_dict[intf]['z-host'] + ':' + port_dict[intf]['z-port']
+            config_list.append(new_desc)
+            print('Configuring this ' + new_desc +' on ' + host)
+            desc_out = net_conn.send_config_set(config_list)
+            print(desc_out)
+        else:
+            print('Interface description is configured on port ' + items['interface'])
     net_conn.disconnect()
+
