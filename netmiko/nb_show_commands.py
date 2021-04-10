@@ -1,7 +1,7 @@
 from netmiko import ConnectHandler
+from pprint import pprint
 import pynetbox
 import sys
-from pprint import pprint
 import os
 
 def netmiko_connect(host,username):
