@@ -39,5 +39,10 @@ for ports in port_dict.keys():
 for command in cmd_list:
     net_conn = netmiko_connect(host,username)
     output = net_conn.send_command(command,use_textfsm=True)
-    pprint(output)
+    #import pdb; pdb.set_trace() # DEBUG
+    for items in output:
+        print('Interface: ' + items['interface'])
+        print('Status: ' + items['protocol_status'])
+        print('Input errors: ' + items['input_errors'])
+        print('Output errors: ' + items['output_errors'] + '\n')
     net_conn.disconnect()
