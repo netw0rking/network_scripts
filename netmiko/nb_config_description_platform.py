@@ -9,6 +9,8 @@ def netmiko_connect(host,username,cli):
         cli = 'cisco_ios'
     elif 'nexus' == cli:
         cli = 'cisco_nxos'
+    elif 'ios-xr' == cli:
+        cli = 'cisco_xr'
     net_conn = ConnectHandler(device_type=cli, host=host, username=username, password='cisco') 
     return net_conn
 
@@ -56,6 +58,8 @@ for command in cmd_list:
             config_list.append('interface ' + intf)
             new_desc = 'description BB: ' + port_dict[intf]['z-host'] + ':' + port_dict[intf]['z-port']
             config_list.append(new_desc)
+            if cli == 'ios-xr':
+                config_list.append('commit')
             print('Configuring this ' + new_desc +' on ' + host)
             desc_out = net_conn.send_config_set(config_list)
             print(desc_out)
