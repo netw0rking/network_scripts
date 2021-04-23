@@ -1,0 +1,202 @@
+2021-04-22 05:50:59,148 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_facts']} on 2 hosts
+2021-04-22 05:50:59,259 - nornir.core.task -    ERROR -      start() - Host 'cisco': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 57, in open
+    connection.open()
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/ios/ios.py", line 170, in open
+    device_type, netmiko_optional_args=self.netmiko_optional_args
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/base/base.py", line 92, in _netmiko_open
+    **netmiko_optional_args
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/netmiko/ssh_dispatcher.py", line 315, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/netmiko/cisco/cisco_ios.py", line 17, in __init__
+    return super().__init__(*args, **kwargs)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/netmiko/base_connection.py", line 346, in __init__
+    self._open()
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/netmiko/base_connection.py", line 351, in _open
+    self.establish_connection()
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/netmiko/base_connection.py", line 931, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/paramiko/client.py", line 446, in connect
+    passphrase,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/paramiko/client.py", line 765, in _auth
+    raise SSHException("No authentication methods available")
+paramiko.ssh_exception.SSHException: No authentication methods available
+
+2021-04-22 05:50:59,810 - nornir.core.task -    ERROR -      start() - Host 'juniper': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/jnpr/junos/device.py", line 1360, in open
+    "use_filter": self._use_filter,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/ncclient/manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/ncclient/manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/ncclient/transport/ssh.py", line 362, in connect
+    self._auth(username, password, key_filenames, allow_agent, look_for_keys)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/ncclient/transport/ssh.py", line 464, in _auth
+    raise AuthenticationError(repr(saved_exception))
+ncclient.transport.errors.AuthenticationError: AuthenticationException('Authentication failed.',)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 57, in open
+    connection.open()
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/junos/junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/jnpr/junos/device.py", line 1366, in open
+    raise EzErrors.ConnectAuthError(self)
+jnpr.junos.exception.ConnectAuthError: ConnectAuthError(core-mx)
+
+2021-04-22 05:53:47,454 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_facts']} on 2 hosts
+2021-04-22 05:53:47,456 - nornir.core.task -    ERROR -      start() - Host 'edge-switch': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/base/__init__.py", line 68, in get_network_driver
+    raise ModuleImportError("Please provide a valid driver name.")
+napalm.base.exceptions.ModuleImportError: Please provide a valid driver name.
+
+2021-04-22 05:53:47,457 - nornir.core.task -    ERROR -      start() - Host 'core-mx': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/base/__init__.py", line 68, in get_network_driver
+    raise ModuleImportError("Please provide a valid driver name.")
+napalm.base.exceptions.ModuleImportError: Please provide a valid driver name.
+
+2021-04-22 05:54:47,449 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_facts']} on 2 hosts
+2021-04-22 05:54:47,451 - nornir.core.task -    ERROR -      start() - Host 'edge-switch': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/base/__init__.py", line 68, in get_network_driver
+    raise ModuleImportError("Please provide a valid driver name.")
+napalm.base.exceptions.ModuleImportError: Please provide a valid driver name.
+
+2021-04-22 05:54:47,451 - nornir.core.task -    ERROR -      start() - Host 'core-mx': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/base/__init__.py", line 68, in get_network_driver
+    raise ModuleImportError("Please provide a valid driver name.")
+napalm.base.exceptions.ModuleImportError: Please provide a valid driver name.
+
+2021-04-22 06:03:36,837 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts']} on 1 hosts
+2021-04-22 06:03:36,838 - nornir.core.task -    ERROR -      start() - Host 'edge-switch': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/base/__init__.py", line 68, in get_network_driver
+    raise ModuleImportError("Please provide a valid driver name.")
+napalm.base.exceptions.ModuleImportError: Please provide a valid driver name.
+
+2021-04-22 06:04:18,021 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts']} on 1 hosts
+2021-04-22 06:04:18,022 - nornir.core.task -    ERROR -      start() - Host 'edge-switch': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/base/__init__.py", line 68, in get_network_driver
+    raise ModuleImportError("Please provide a valid driver name.")
+napalm.base.exceptions.ModuleImportError: Please provide a valid driver name.
+
+2021-04-22 06:05:02,231 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts']} on 1 hosts
+2021-04-22 06:05:02,232 - nornir.core.task -    ERROR -      start() - Host 'edge-switch': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/base/__init__.py", line 68, in get_network_driver
+    raise ModuleImportError("Please provide a valid driver name.")
+napalm.base.exceptions.ModuleImportError: Please provide a valid driver name.
+
+2021-04-22 06:05:34,555 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts']} on 1 hosts
+2021-04-22 06:05:34,557 - nornir.core.task -    ERROR -      start() - Host 'edge-switch': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 502, in get_connection
+    extras=conn.extras,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir/core/inventory.py", line 553, in open_connection
+    configuration=configuration,
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/wquizhpi/venv/lib/python3.6/site-packages/napalm/base/__init__.py", line 68, in get_network_driver
+    raise ModuleImportError("Please provide a valid driver name.")
+napalm.base.exceptions.ModuleImportError: Please provide a valid driver name.
+
+2021-04-23 11:10:25,255 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'interfaces']} on 2 hosts
+2021-04-23 11:10:49,975 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'interfaces']} on 2 hosts
