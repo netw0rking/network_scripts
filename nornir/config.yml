@@ -7,6 +7,6 @@ runner:
 inventory:
   plugin: SimpleInventory
   options:
-    host_file: '~/github/nornir/hosts.yml'
-    group_file: '~/github/nornir/groups.yml'
-    defaults_file: '~/github/nornir/defaults.yml'
+    host_file: '.\hosts.yml'
+    group_file: '.\groups.yml'
+    defaults_file: '.\defaults.yml'
