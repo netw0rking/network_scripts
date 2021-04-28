@@ -1,19 +1,9 @@
----
-{% for name, loopback in host_list['cisco'].items %}
-{{ name }}:
-    hostname: {{ loopback }}
-    platform: ios
+---{% for host in host_list %}
+{{ host_list[host].name }}:
+    hostname: {{ host_list[host].loopback }}
     username: wquizhpi
-    password: cisco
+    platform: {{ host_list[host].cli }}
+    password: {{ host_list[host].password }}
     groups:
-      - ios_group
-{% endfor %}
-{% for name, loopback in host_list['juniper'].items %}
-{{ name }}:
-    hostname: {{ loopback }}
-    platform: juniper
-    username: wquizhpi
-    password: Juniper
-    groups:
-      - junos_group
+      - {{ host_list[host].platform }}
 {% endfor %}

@@ -1,0 +1,6 @@
+---
+ios_group:
+    platforms: 'ios'
+
+junos_group:
+    platforms: 'junos'
