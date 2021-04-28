@@ -1,5 +1,4 @@
 from nornir import InitNornir
-from nornir_utils.plugins.functions import print_result
 from nornir_napalm.plugins.tasks import napalm_get
 from pprint import pprint
 
@@ -9,5 +8,10 @@ sw_output = nr.run(task=napalm_get, getters=['facts', 'get_interfaces_ip'])
 
 output= {}
 for switch in sw_output:
-    bgp_dict= sw_output[switch][0].result
-    pprint(bgp_dict)
+    try:
+        intf_dict= sw_output[switch][0].result
+        pprint(intf_dict['facts']['hostname'])
+        pprint(intf_dict['get_interfaces_ip'])
+    except:
+        print('Script on ' + switch + ' was not successful')
+        continue
