@@ -15,5 +15,6 @@ interface {{ intf[intf_item].name }}
  ip address {{ intf[intf_item].local_ip }}
  description Connection to {{ intf[intf_item].z_host }}:{{ intf[intf_item].z_port }}
  ip router ospf 1 area 0.0.0.0
+ no mac-address
  no shutdown
 {% endfor %}
