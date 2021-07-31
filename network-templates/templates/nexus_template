@@ -1,0 +1,29 @@
+{% for host_item in host %}
+hostname {{ host[host_item].name }}
+
+interface loopback0
+ ip address {{ host[host_item].loopback }}
+ ip ospf advertise-subnet
+ ip router ospf 1 area 0.0.0.0
+
+router ospf 1
+ router-id {{ (host[host_item].loopback)[:-3] }}
+{% endfor %}
+router bgp 65002
+ address-family ipv4 unicast
+ {% for host, ip in bgp.items() %}
+ neighbor {{ ip }} remote-as 65002
+  description {{ host }}
+  update-source loopback0
+  address-family ipv4 unicast
+   soft-reconfiguration inbound
+ {% endfor %}
+{% for intf_item in intf %}
+interface {{ intf[intf_item].name }}
+ no switchport
+ ip address {{ intf[intf_item].local_ip }}
+ description Connection to {{ intf[intf_item].z_host }}:{{ intf[intf_item].z_port }}
+ ip router ospf 1 area 0.0.0.0
+ no shutdown
+{% endfor %}
+
