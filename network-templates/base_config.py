@@ -4,6 +4,7 @@ import sys
 
 if len(sys.argv) <= 1:
     print('Use: /base_config.py hostname')
+    quit()
 
 def host_dict(hostname):
     host_dict = {}
@@ -49,6 +50,6 @@ bgp_detail = bgp_dict(intf_detail)
 #print(bgp_detail)
 file_loader = FileSystemLoader('templates')
 env = Environment(loader=file_loader)
-template = env.get_template('nexus_template')
+template = env.get_template('arista_template')
 output = template.render(intf=intf_detail, host=host_detail, bgp=bgp_detail)
 print(output)
