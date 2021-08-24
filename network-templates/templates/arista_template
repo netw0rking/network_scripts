@@ -4,4 +4,18 @@ hostname {{ host[host_item].name }}
 interface loopback0
  ip address {{ host[host_item].loopback }}
 
+{% if 'leaf' in host[host_item].name %}
+interface loopback1
+ ip address {{ vxlan_ip }}
+ description EVPN Peering
+{% endif %}
+{% endfor %}
+
+{% for intf_item in intf %}
+interface {{ intf[intf_item].name }}
+ no switchport
+ ip address {{ intf[intf_item].local_ip }}
+ description Connection to {{ intf[intf_item].z_host }}:{{ intf[intf_item].z_port }}
+ mtu 9214
+ no shutdown
 {% endfor %}
