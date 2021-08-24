@@ -1,0 +1,7 @@
+{% for host_item in host %}
+hostname {{ host[host_item].name }}
+
+interface loopback0
+ ip address {{ host[host_item].loopback }}
+
+{% endfor %}

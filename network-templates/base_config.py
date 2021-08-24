@@ -4,6 +4,7 @@ import sys
 
 if len(sys.argv) <= 1:
     print('Use: /base_config.py hostname')
+    quit()
 
 def host_dict(hostname):
     host_dict = {}
@@ -56,7 +57,13 @@ vxlan_ip = vxlan_loopback(hostname)
 #print(bgp_detail)
 file_loader = FileSystemLoader('templates')
 env = Environment(loader=file_loader)
+<<<<<<< HEAD
 template = env.get_template('nexus_template')
 output = template.render(intf=intf_detail, host=host_detail, bgp=bgp_detail,
                          vxlan_ip=vxlan_ip)
 print(output)
+=======
+template = env.get_template('arista_template')
+output = template.render(intf=intf_detail, host=host_detail, bgp=bgp_detail)
+print(output)
+>>>>>>> d5ef0c8d55457f3531eefe77cb784266da3853d4
