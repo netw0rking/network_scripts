@@ -10,6 +10,12 @@ interface loopback0
 interface loopback1
  ip address {{ vxlan_ip }}
  description VXLAN Source
+
+vlan 4093
+name MLAG-iBGP-PEER
+
+interface vlan4093
+ ip address {{ mlag }}
 {% endif %}
 {% endfor %}
 
@@ -21,4 +27,3 @@ interface {{ intf[intf_item].name }}
  mtu 9214
  no shutdown
 {% endfor %}
-

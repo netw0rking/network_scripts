@@ -49,6 +49,11 @@ def mlag_ip(hostname):
     if 'leaf' in hostname:
         split_host = hostname.split('-')
         digit = int(split_host[2]) % 2
+        if digit == 0:
+            ip = '192.168.255.0/31'
+        else:
+            ip = '192.168.255.1/31'
+        return ip
 
 nb = pynetbox.api(url='http://100.64.1.226:8000',
                   token='a11c6850a273edcdaccbab6d71f9fc0c2786e900')
@@ -58,10 +63,11 @@ host_detail = host_dict(hostname)
 intf_detail = intf_dict(hostname)
 bgp_detail = bgp_dict(intf_detail)
 vxlan_ip = vxlan_loopback(hostname)
+mlag = mlag_ip(hostname)
 #print(bgp_detail)
 file_loader = FileSystemLoader('templates')
 env = Environment(loader=file_loader)
 template = env.get_template('arista_template')
 output = template.render(intf=intf_detail, host=host_detail, bgp=bgp_detail,
-                         vxlan_ip=vxlan_ip)
+                         vxlan_ip=vxlan_ip,mlag=mlag)
 print(output)
