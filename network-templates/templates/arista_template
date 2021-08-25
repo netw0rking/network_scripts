@@ -1,3 +1,5 @@
+service routing protocols model multi-agent
+
 {% for host_item in host %}
 hostname {{ host[host_item].name }}
 
@@ -7,7 +9,7 @@ interface loopback0
 {% if 'leaf' in host[host_item].name %}
 interface loopback1
  ip address {{ vxlan_ip }}
- description EVPN Peering
+ description VXLAN Source
 {% endif %}
 {% endfor %}
 
@@ -19,3 +21,4 @@ interface {{ intf[intf_item].name }}
  mtu 9214
  no shutdown
 {% endfor %}
+

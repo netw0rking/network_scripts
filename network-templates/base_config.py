@@ -14,12 +14,12 @@ def host_dict(hostname):
     host_dict[hostname] ={}
     host_dict[hostname]['name'] = hostname
     host_dict[hostname]['loopback'] = lo0
-    return(host_dict)
+    return host_dict
 
 def vxlan_loopback(hostname):
     vxlan_ip = nb.ipam.ip_addresses.get(device=hostname,interface='lo1',family=4)
     vxlan_ip = str(vxlan_ip)
-    return(vxlan_ip)
+    return vxlan_ip
 
 def intf_dict(hostname):
     intf_dict = {}
@@ -33,7 +33,7 @@ def intf_dict(hostname):
             intf_dict[s_intf]['z_host'] = str(intf.cable_peer.device)
             intf_dict[s_intf]['z_port'] = str(intf.cable_peer.name)
             intf_dict[s_intf]['local_ip'] = str(addr)
-    return(intf_dict)
+    return intf_dict
 
 def bgp_dict(intf_detail):
     bgp_dict = {}
@@ -44,7 +44,12 @@ def bgp_dict(intf_detail):
         s_host = str(host)
         host_ip = host.primary_ip
         bgp_dict[s_host] = str(host_ip)[:-3]
-    return(bgp_dict)
+    return bgp_dict
+
+def mlag_ip(hostname):
+    if 'leaf' in hostname:
+        split_host = hostname.split('-')
+        digit = int(split_host[2]) % 2
 
 nb = pynetbox.api(url='http://100.64.1.226:8000',
                   token='a11c6850a273edcdaccbab6d71f9fc0c2786e900')

@@ -1,0 +1,540 @@
+2021-04-28 08:30:33,020 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'get_interfaces_ip']} on 8 hosts
+2021-04-28 08:30:54,394 - nornir.core.task -    ERROR -      start() - Host 'leaf3': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.4:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.4)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 08:30:54,396 - nornir.core.task -    ERROR -      start() - Host 'spine2': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.1:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 08:33:08,725 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'get_interfaces_ip']} on 8 hosts
+2021-04-28 08:33:31,080 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'get_interfaces_ip']} on 8 hosts
+2021-04-28 08:33:52,123 - nornir.core.task -    ERROR -      start() - Host 'leaf3': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.4:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.4)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 08:33:52,157 - nornir.core.task -    ERROR -      start() - Host 'spine2': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.1:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 08:39:09,439 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'get_interfaces_ip']} on 8 hosts
+2021-04-28 08:39:30,505 - nornir.core.task -    ERROR -      start() - Host 'spine2': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.1:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 08:39:30,507 - nornir.core.task -    ERROR -      start() - Host 'leaf3': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.4:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.4)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 08:41:36,902 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'get_interfaces_ip']} on 8 hosts
+2021-04-28 08:41:57,995 - nornir.core.task -    ERROR -      start() - Host 'leaf3': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.4:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.4)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 08:41:57,997 - nornir.core.task -    ERROR -      start() - Host 'spine2': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.1:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 09:00:16,158 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'get_interfaces_ip']} on 8 hosts
+2021-04-28 09:00:37,235 - nornir.core.task -    ERROR -      start() - Host 'leaf3': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.4:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.4)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 09:00:37,237 - nornir.core.task -    ERROR -      start() - Host 'spine2': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.1:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 09:05:42,233 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'get_bgp_neighbors']} on 8 hosts
+2021-04-28 09:06:03,306 - nornir.core.task -    ERROR -      start() - Host 'spine2': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.1:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 09:06:03,310 - nornir.core.task -    ERROR -      start() - Host 'leaf3': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.4:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.4)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 09:22:23,918 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['facts', 'get_bgp_neighbors']} on 8 hosts
+2021-04-28 09:22:44,992 - nornir.core.task -    ERROR -      start() - Host 'leaf3': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.4:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.4)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+
+2021-04-28 09:22:44,994 - nornir.core.task -    ERROR -      start() - Host 'spine2': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1347, in open
+    self._conn = netconf_ssh.connect(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 168, in connect
+    return connect_ssh(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\manager.py", line 135, in connect_ssh
+    session.connect(*args, **kwds)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\ncclient\transport\ssh.py", line 291, in connect
+    raise SSHError("Could not open socket to %s:%s" % (host, port))
+ncclient.transport.errors.SSHError: Could not open socket to 100.64.99.1:22
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 127, in open
+    self.device.open(auto_probe=self.auto_probe)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\jnpr\junos\device.py", line 1385, in open
+    raise EzErrors.ConnectTimeoutError(self)
+jnpr.junos.exception.ConnectTimeoutError: ConnectTimeoutError(100.64.99.1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\tasks\napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir\core\inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\nornir_napalm\plugins\connections\__init__.py", line 57, in open
+    connection.open()
+  File "C:\Desktop\PycharmProjects\pythonProject\nornir\lib\site-packages\napalm\junos\junos.py", line 129, in open
+    raise ConnectionException(cte.msg) from cte
+napalm.base.exceptions.ConnectionException: None
+

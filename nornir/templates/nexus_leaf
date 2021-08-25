@@ -1,0 +1,49 @@
+license grace-period
+
+hostname {{ hostname }}
+
+feature ospf
+feature bgp
+feature lldp
+
+username admin password 5 $5$Otc7T0NC$K.ulnSZnSyXLrTGNBdtLgZJXEa8EeNx.BrdZ98XyK2C  role network-admin
+username wquizhpi password 5 $5$e9n2Qzq6$4wwl09oY3H2IxTVdzx0Z6mVvoc0C25S.afsoaSVF0h9  role priv-15
+username wquizhpi passphrase  lifetime 99999 warntime 14 gracetime 3
+no password strength-check
+no ip domain-lookup
+ip domain-name kush.net
+crypto key param rsa label {{ hostname }}.kush.net modulus 512 
+no logging event trunk-status enable
+copp profile strict
+
+vlan 1
+
+ip prefix-list ALLOW-ALL seq 5 permit 0.0.0.0/0 le 32  
+route-map ALLOW-ALL permit 10
+  match community ALLOW-ALL 
+vrf context MGMT
+
+
+interface mgmt0
+  vrf member MGMT
+
+interface {{ intf.name }}
+  no switchport
+  mac-address 0000.0000.002f
+  ip address {{ intf.ip_addr }}
+  no shutdown
+
+interface loopback0
+  ip address {{ loopback.ip_addr }}
+
+line console
+line vty
+boot kickstart bootflash:/titanium-d1-kickstart.7.3.0.D1.1.bin
+boot system bootflash:/titanium-d1.7.3.0.D1.1.bin 
+router bgp {{ bgp_peer.local-as }}
+  address-family ipv4 unicast
+  neighbor {{ bgp_peer.ip_addr }} remote-as {{ bgp_peer.remote-as }}
+    address-family ipv4 unicast
+      route-map ALLOW-ALL in
+      soft-reconfiguration inbound
+no system default switchport shutdown
