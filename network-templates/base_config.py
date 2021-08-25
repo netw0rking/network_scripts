@@ -10,7 +10,6 @@ def host_dict(hostname):
     host_dict = {}
     host = nb.dcim.devices.get(name=hostname)
     lo0 = str(host.primary_ip)
-
     host_dict[hostname] ={}
     host_dict[hostname]['name'] = hostname
     host_dict[hostname]['loopback'] = lo0
