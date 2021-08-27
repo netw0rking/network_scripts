@@ -27,3 +27,26 @@ interface {{ intf[intf_item].name }}
  mtu 9214
  no shutdown
 {% endfor %}
+
+{% for host_item in host %}
+{% if 'spine' in host[host_item].name %}
+router bgp 65520
+ router-id {{ host[host_item].loopback[:-3] }}
+ update wait-install
+ no bgp default ipv4-unicast
+ neighbor LEAF-UNDERLAY peer-group
+ neighbor LEAF-UNDERLAY send-community
+ neighbor LEAF-UNDERLAY maximum-routes 1000
+ {% for intf_item in intf %}
+ neighbor {{ intf[intf_item].z_ip[:-3] }} peer-group LEAF-UNDERLAY
+ neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
+ redistribute connected route-map LOCAL-PREFIX
+
+ address-family ipv4
+  neighbor LEAF-UNDERLAY activate
+{% endif %}
+{% if 'leaf' in host[host_item].name %}
+router bgp 65530
+{% endif %}
+{% endfor %}
+

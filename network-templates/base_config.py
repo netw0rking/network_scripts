@@ -27,10 +27,12 @@ def intf_dict(hostname):
         if intf.cable_peer != None:
             s_intf = str(intf)
             addr = nb.ipam.ip_addresses.get(device=hostname, interface=str(intf), family=4)
+            neigh_ip = nb.ipam.ip_addresses.get(device=str(intf.cable_peer.device), interface=str(intf.cable_peer.name), family=4)
             intf_dict[s_intf] = {}
             intf_dict[s_intf]['name'] = str(intf)
             intf_dict[s_intf]['z_host'] = str(intf.cable_peer.device)
             intf_dict[s_intf]['z_port'] = str(intf.cable_peer.name)
+            intf_dict[s_intf]['z_ip'] = str(neigh_ip)
             intf_dict[s_intf]['local_ip'] = str(addr)
     return intf_dict
 
