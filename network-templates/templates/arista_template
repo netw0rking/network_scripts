@@ -16,6 +16,10 @@ name MLAG-iBGP-PEER
 
 interface vlan4093
  ip address {{ mlag }}
+
+ip prefix-list LOOPBACKS
+ permit {{ vxlan_ip }}
+ permit {{ host[host_item].loopback }}
 {% endif %}
 {% endfor %}
 
@@ -27,6 +31,12 @@ interface {{ intf[intf_item].name }}
  mtu 9214
  no shutdown
 {% endfor %}
+
+route-map LOCAL-PREFIX permit 10
+ match ip address prefix-list LOOPBACKS
+
+route-map LOCAL-PREFIX permit 20
+ match ip address prefix-list P2P-UNDERLAY
 
 {% for host_item in host %}
 {% if 'spine' in host[host_item].name %}
@@ -47,6 +57,18 @@ router bgp 65520
 {% endif %}
 {% if 'leaf' in host[host_item].name %}
 router bgp 65530
+ router-id {{ host[host_item].loopback[:-3] }}
+ update wait-install
+ no bgp default ipv4-unicast
+ neighbor SPINE-UNDERLAY peer-group
+ neighbor SPINE-UNDERLAY send-community
+ neighbor SPINE-UNDERLAY maximum-routes 1000
+ {% for intf_item in intf %}
+ neighbor {{ intf[intf_item].z_ip[:-3] }} peer-group SPINE-UNDERLAY
+ neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
+ redistribute connected route-map LOCAL-PREFIX
+
+ address-family ipv4
+  neighbor SPINE-UNDERLAY activate
 {% endif %}
 {% endfor %}
-
