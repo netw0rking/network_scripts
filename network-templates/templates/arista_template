@@ -52,12 +52,12 @@ router bgp 65520
  router-id {{ host[host_item].loopback[:-3] }}
  update wait-install
  no bgp default ipv4-unicast
- neighbor LEAF-UNDERLAY peer-group
+ neighbor LEAF-UNDERLAY peer group
  neighbor LEAF-UNDERLAY remote-as 65530
  neighbor LEAF-UNDERLAY send-community
  neighbor LEAF-UNDERLAY maximum-routes 1000
  {% for intf_item in intf %}
- neighbor {{ intf[intf_item].z_ip[:-3] }} peer-group LEAF-UNDERLAY
+ neighbor {{ intf[intf_item].z_ip[:-3] }} peer group LEAF-UNDERLAY
  neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
  redistribute connected route-map LOCAL-PREFIX
 
@@ -70,12 +70,12 @@ router bgp 65530
  update wait-install
  no bgp default ipv4-unicast
  maximum-paths 2
- neighbor SPINE-UNDERLAY peer-group
+ neighbor SPINE-UNDERLAY peer group
  neighbor SPINE-UNDERLAY remote-as 65520
  neighbor SPINE-UNDERLAY send-community
  neighbor SPINE-UNDERLAY maximum-routes 1000
  {% for intf_item in intf %}
- neighbor {{ intf[intf_item].z_ip[:-3] }} peer-group SPINE-UNDERLAY
+ neighbor {{ intf[intf_item].z_ip[:-3] }} peer group SPINE-UNDERLAY
  neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
  redistribute connected route-map LOCAL-PREFIX
 
