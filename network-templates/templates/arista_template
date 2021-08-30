@@ -20,8 +20,13 @@ interface vlan4093
 ip prefix-list LOOPBACKS
  permit {{ vxlan_ip }}
  permit {{ host[host_item].loopback }}
+{% elif 'spine' in host[host_item].name %}
+ip prefix-list LOOPBACKS
+ permit {{ host[host_item].loopback }}
 {% endif %}
 {% endfor %}
+ip prefix-list P2P-UNDERLAY
+ permit 0/0 ge 31 le 31
 
 {% for intf_item in intf %}
 interface {{ intf[intf_item].name }}
@@ -45,6 +50,7 @@ router bgp 65520
  update wait-install
  no bgp default ipv4-unicast
  neighbor LEAF-UNDERLAY peer-group
+ neighbor LEAF-UNDERLAY remote-as 65530
  neighbor LEAF-UNDERLAY send-community
  neighbor LEAF-UNDERLAY maximum-routes 1000
  {% for intf_item in intf %}
@@ -60,7 +66,9 @@ router bgp 65530
  router-id {{ host[host_item].loopback[:-3] }}
  update wait-install
  no bgp default ipv4-unicast
+ maximum-paths 2
  neighbor SPINE-UNDERLAY peer-group
+ neighbor SPINE-UNDERLAY remote-as 65520
  neighbor SPINE-UNDERLAY send-community
  neighbor SPINE-UNDERLAY maximum-routes 1000
  {% for intf_item in intf %}
