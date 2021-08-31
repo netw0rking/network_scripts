@@ -82,17 +82,12 @@ host_detail = host_dict(hostname)
 intf_detail = intf_dict(hostname)
 bgp_detail = bgp_dict(intf_detail)
 vxlan_ip = vxlan_loopback(hostname)
-mlag, mlag_neigh = mlag_ip(hostname)
-# print(mlag_neigh)
+mlag = mlag_ip(hostname)
+# print(bgp_detail)
 file_loader = FileSystemLoader("templates")
 env = Environment(loader=file_loader)
 template = env.get_template("arista_template")
 output = template.render(
-    intf=intf_detail,
-    host=host_detail,
-    bgp=bgp_detail,
-    vxlan_ip=vxlan_ip,
-    mlag=mlag,
-    mlag_neigh=mlag_neigh,
+    intf=intf_detail, host=host_detail, bgp=bgp_detail, vxlan_ip=vxlan_ip, mlag=mlag
 )
 print(output)
