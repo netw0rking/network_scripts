@@ -63,8 +63,7 @@ router bgp 65520
 
  address-family ipv4
   neighbor LEAF-UNDERLAY activate
-{% endif %}
-{% if 'leaf' in host[host_item].name %}
+{% elif 'leaf' in host[host_item].name %}
 router bgp 65530
  router-id {{ host[host_item].loopback[:-3] }}
  update wait-install
@@ -74,12 +73,19 @@ router bgp 65530
  neighbor SPINE-UNDERLAY remote-as 65520
  neighbor SPINE-UNDERLAY send-community
  neighbor SPINE-UNDERLAY maximum-routes 1000
+ neighbor MLAG-UNDERLAY peer group
+ neighbor MLAG-UNDERLAY remote-as 65530
+ neighbor MLAG-UNDERLAY next-hop-self
+ neighbor MLAG-UNDERLAY send-community
+ neighbor MLAG-UNDERLAY maximum-routes 1000
  {% for intf_item in intf %}
  neighbor {{ intf[intf_item].z_ip[:-3] }} peer group SPINE-UNDERLAY
  neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
+ neighbor {{ mlag_neigh }} peer group MLAG-UNDERLAY
  redistribute connected route-map LOCAL-PREFIX
 
  address-family ipv4
   neighbor SPINE-UNDERLAY activate
+  neighbor MLAG-UNDERLAY activate
 {% endif %}
 {% endfor %}
