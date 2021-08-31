@@ -3,6 +3,10 @@ service routing protocols model multi-agent
 username admin privilege 15 secret arista-admin
 enable password arista-admin
 
+ip routing
+
+lldp run
+
 {% for host_item in host %}
 hostname {{ host[host_item].name }}
 
@@ -29,7 +33,7 @@ ip prefix-list LOOPBACKS
 {% endif %}
 {% endfor %}
 ip prefix-list P2P-UNDERLAY
- permit 0/0 ge 31 le 31
+ permit 0.0.0.0/0 eq 31
 
 {% for intf_item in intf %}
 interface {{ intf[intf_item].name }}

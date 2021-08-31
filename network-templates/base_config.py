@@ -70,6 +70,8 @@ def mlag_ip(hostname):
             ip = "192.168.255.1/31"
             neigh_ip = "192.168.255.0"
         return ip, neigh_ip
+    else:
+        return 0, 1
 
 
 nb_url = os.environ.get("nb_url")
