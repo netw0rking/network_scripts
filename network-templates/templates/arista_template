@@ -54,7 +54,6 @@ route-map LOCAL-PREFIX permit 20
 {% if 'spine' in host[host_item].name %}
 router bgp 65520
  router-id {{ host[host_item].loopback[:-3] }}
- update wait-install
  no bgp default ipv4-unicast
  neighbor LEAF-UNDERLAY peer group
  neighbor LEAF-UNDERLAY remote-as 65530
@@ -70,7 +69,6 @@ router bgp 65520
 {% elif 'leaf' in host[host_item].name %}
 router bgp 65530
  router-id {{ host[host_item].loopback[:-3] }}
- update wait-install
  no bgp default ipv4-unicast
  maximum-paths 2
  neighbor SPINE-UNDERLAY peer group
