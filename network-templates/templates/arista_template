@@ -24,6 +24,10 @@ name MLAG-iBGP-PEER
 interface vlan4093
  ip address {{ mlag }}
 
+interface Ethernet8
+ switchport mode access
+ switchport access vlan 4093
+
 ip prefix-list LOOPBACKS
  permit {{ vxlan_ip }}
  permit {{ host[host_item].loopback }}
