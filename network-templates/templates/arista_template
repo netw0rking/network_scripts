@@ -1,5 +1,12 @@
 service routing protocols model multi-agent
 
+username admin privilege 15 secret arista-admin
+enable password arista-admin
+
+ip routing
+
+lldp run
+
 {% for host_item in host %}
 hostname {{ host[host_item].name }}
 
@@ -17,6 +24,10 @@ name MLAG-iBGP-PEER
 interface vlan4093
  ip address {{ mlag }}
 
+interface Ethernet8
+ switchport mode access
+ switchport access vlan 4093
+
 ip prefix-list LOOPBACKS
  permit {{ vxlan_ip }}
  permit {{ host[host_item].loopback }}
@@ -26,7 +37,7 @@ ip prefix-list LOOPBACKS
 {% endif %}
 {% endfor %}
 ip prefix-list P2P-UNDERLAY
- permit 0/0 ge 31 le 31
+ permit 0.0.0.0/0 eq 31
 
 {% for intf_item in intf %}
 interface {{ intf[intf_item].name }}
@@ -47,36 +58,51 @@ route-map LOCAL-PREFIX permit 20
 {% if 'spine' in host[host_item].name %}
 router bgp 65520
  router-id {{ host[host_item].loopback[:-3] }}
- update wait-install
  no bgp default ipv4-unicast
- neighbor LEAF-UNDERLAY peer-group
+ neighbor LEAF-UNDERLAY peer group
  neighbor LEAF-UNDERLAY remote-as 65530
  neighbor LEAF-UNDERLAY send-community
  neighbor LEAF-UNDERLAY maximum-routes 1000
+ neighbor EVPN-PEER peer group
+ neighbor EVPN-PEER next-hop-unchanged
+ neighbor EVPN-PEER update source Loopback0
+ neighbor EVPN-PEER ebgp-multihop 3
+ neighbor EVPN-PEER send-community
+ neighbor EVPN-PEER maximum-routes 0
  {% for intf_item in intf %}
- neighbor {{ intf[intf_item].z_ip[:-3] }} peer-group LEAF-UNDERLAY
+ neighbor {{ intf[intf_item].z_ip[:-3] }} peer group LEAF-UNDERLAY
  neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
+ {% for neighbor in bgp %}
+ neighbor {{ bgp[neighbor] }} peer group EVPN-PEER
+ neighbor {{ bgp[neighbor] }} description {{ neighbor }}{% endfor %}
  redistribute connected route-map LOCAL-PREFIX
 
  address-family ipv4
   neighbor LEAF-UNDERLAY activate
-{% endif %}
-{% if 'leaf' in host[host_item].name %}
+  neighbor EVPN-PEER activate
+{% elif 'leaf' in host[host_item].name %}
 router bgp 65530
  router-id {{ host[host_item].loopback[:-3] }}
- update wait-install
  no bgp default ipv4-unicast
  maximum-paths 2
- neighbor SPINE-UNDERLAY peer-group
+ neighbor SPINE-UNDERLAY peer group
  neighbor SPINE-UNDERLAY remote-as 65520
+ neighbor SPINE-UNDERLAY allowas-in
  neighbor SPINE-UNDERLAY send-community
  neighbor SPINE-UNDERLAY maximum-routes 1000
+ neighbor MLAG-UNDERLAY peer group
+ neighbor MLAG-UNDERLAY remote-as 65530
+ neighbor MLAG-UNDERLAY next-hop-self
+ neighbor MLAG-UNDERLAY send-community
+ neighbor MLAG-UNDERLAY maximum-routes 1000
  {% for intf_item in intf %}
- neighbor {{ intf[intf_item].z_ip[:-3] }} peer-group SPINE-UNDERLAY
+ neighbor {{ intf[intf_item].z_ip[:-3] }} peer group SPINE-UNDERLAY
  neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
+ neighbor {{ mlag_neigh }} peer group MLAG-UNDERLAY
  redistribute connected route-map LOCAL-PREFIX
 
  address-family ipv4
   neighbor SPINE-UNDERLAY activate
+  neighbor MLAG-UNDERLAY activate
 {% endif %}
 {% endfor %}
