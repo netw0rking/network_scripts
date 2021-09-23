@@ -64,6 +64,7 @@ router bgp 65520
  neighbor LEAF-UNDERLAY send-community
  neighbor LEAF-UNDERLAY maximum-routes 1000
  neighbor EVPN-PEER peer group
+ neighbor EVPN-PEER remote-as 65530
  neighbor EVPN-PEER next-hop-unchanged
  neighbor EVPN-PEER update source Loopback0
  neighbor EVPN-PEER ebgp-multihop 3
@@ -79,6 +80,7 @@ router bgp 65520
 
  address-family ipv4
   neighbor LEAF-UNDERLAY activate
+ address-family evpn
   neighbor EVPN-PEER activate
 {% elif 'leaf' in host[host_item].name %}
 router bgp 65530
@@ -95,14 +97,26 @@ router bgp 65530
  neighbor MLAG-UNDERLAY next-hop-self
  neighbor MLAG-UNDERLAY send-community
  neighbor MLAG-UNDERLAY maximum-routes 1000
+ neighbor EVPN-PEER peer group
+ neighbor EVPN-PEER remote-as 65520
+ neighbor EVPN-PEER next-hop-unchanged
+ neighbor EVPN-PEER update source Loopback0
+ neighbor EVPN-PEER ebgp-multihop 3
+ neighbor EVPN-PEER send-community
+ neighbor EVPN-PEER maximum-routes 0
  {% for intf_item in intf %}
  neighbor {{ intf[intf_item].z_ip[:-3] }} peer group SPINE-UNDERLAY
  neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
+ {% for neighbor in bgp %}
+ neighbor {{ bgp[neighbor] }} peer group EVPN-PEER
+ neighbor {{ bgp[neighbor] }} description {{ neighbor }}{% endfor %}
  neighbor {{ mlag_neigh }} peer group MLAG-UNDERLAY
  redistribute connected route-map LOCAL-PREFIX
 
  address-family ipv4
   neighbor SPINE-UNDERLAY activate
   neighbor MLAG-UNDERLAY activate
+ address-family evpn
+  neighbor EVPN-PEER activate
 {% endif %}
 {% endfor %}
