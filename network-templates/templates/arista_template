@@ -39,14 +39,14 @@ ip prefix-list LOOPBACKS
 ip prefix-list P2P-UNDERLAY
  permit 0.0.0.0/0 eq 31
 
-{% for intf_item in intf %}
+{% for intf_item in intf %}{% if 'None' not in intf[intf_item].local_ip %}
 interface {{ intf[intf_item].name }}
  no switchport
  ip address {{ intf[intf_item].local_ip }}
  description Connection to {{ intf[intf_item].z_host }}:{{ intf[intf_item].z_port }}
  mtu 9214
  no shutdown
-{% endfor %}
+{% endif %}{% endfor %}
 
 route-map LOCAL-PREFIX permit 10
  match ip address prefix-list LOOPBACKS
@@ -66,16 +66,16 @@ router bgp 65520
  neighbor EVPN-PEER peer group
  neighbor EVPN-PEER remote-as 65530
  neighbor EVPN-PEER next-hop-unchanged
- neighbor EVPN-PEER update source Loopback0
+ neighbor EVPN-PEER update-source Loopback0
  neighbor EVPN-PEER ebgp-multihop 3
  neighbor EVPN-PEER send-community
  neighbor EVPN-PEER maximum-routes 0
- {% for intf_item in intf %}
+ {% for intf_item in intf %}{% if 'leaf' in intf[intf_item].z_host %}
  neighbor {{ intf[intf_item].z_ip[:-3] }} peer group LEAF-UNDERLAY
- neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
- {% for neighbor in bgp %}
+ neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endif %}{% endfor %}
+ {% for neighbor in bgp %}{% if 'leaf' in neighbor %}
  neighbor {{ bgp[neighbor] }} peer group EVPN-PEER
- neighbor {{ bgp[neighbor] }} description {{ neighbor }}{% endfor %}
+ neighbor {{ bgp[neighbor] }} description {{ neighbor }}{% endif %}{% endfor %}
  redistribute connected route-map LOCAL-PREFIX
 
  address-family ipv4
@@ -100,16 +100,16 @@ router bgp 65530
  neighbor EVPN-PEER peer group
  neighbor EVPN-PEER remote-as 65520
  neighbor EVPN-PEER next-hop-unchanged
- neighbor EVPN-PEER update source Loopback0
+ neighbor EVPN-PEER update-source Loopback0
  neighbor EVPN-PEER ebgp-multihop 3
  neighbor EVPN-PEER send-community
  neighbor EVPN-PEER maximum-routes 0
- {% for intf_item in intf %}
+ {% for intf_item in intf %}{% if 'spine' in intf[intf_item].z_host %}
  neighbor {{ intf[intf_item].z_ip[:-3] }} peer group SPINE-UNDERLAY
- neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endfor %}
- {% for neighbor in bgp %}
+ neighbor {{ intf[intf_item].z_ip[:-3] }} description {{ intf[intf_item].z_host }}{% endif %}{% endfor %}
+ {% for neighbor in bgp %}{% if 'spine' in neighbor %}
  neighbor {{ bgp[neighbor] }} peer group EVPN-PEER
- neighbor {{ bgp[neighbor] }} description {{ neighbor }}{% endfor %}
+ neighbor {{ bgp[neighbor] }} description {{ neighbor }}{% endif %}{% endfor %}
  neighbor {{ mlag_neigh }} peer group MLAG-UNDERLAY
  redistribute connected route-map LOCAL-PREFIX
 
