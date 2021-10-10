@@ -99,7 +99,7 @@ router bgp 65530
  neighbor MLAG-UNDERLAY maximum-routes 1000
  neighbor EVPN-PEER peer group
  neighbor EVPN-PEER remote-as 65520
- neighbor EVPN-PEER next-hop-unchanged
+ neighbor EVPN-PEER allowas-in 2
  neighbor EVPN-PEER update-source Loopback0
  neighbor EVPN-PEER ebgp-multihop 3
  neighbor EVPN-PEER send-community
@@ -114,9 +114,11 @@ router bgp 65530
  redistribute connected route-map LOCAL-PREFIX
 
  address-family ipv4
+  no neighbor EVPN-PEER activate
   neighbor SPINE-UNDERLAY activate
   neighbor MLAG-UNDERLAY activate
  address-family evpn
+  bgp next-hop-unchanged
   neighbor EVPN-PEER activate
 {% endif %}
 {% endfor %}
