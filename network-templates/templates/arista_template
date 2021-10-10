@@ -28,6 +28,9 @@ interface Ethernet8
  switchport mode access
  switchport access vlan 4093
 
+interface Vxlan1
+ vxlan source-interface Loopback1
+
 ip prefix-list LOOPBACKS
  permit {{ vxlan_ip }}
  permit {{ host[host_item].loopback }}
