@@ -1,0 +1,12 @@
+vlan {{ vlan_id }}
+ name CUSTOMER-{{ vlan_id }}
+
+interface Vxlan1
+ vxlan vlan {{ vlan_id }} vni 1000{{ vlan_id }}
+
+router bgp 65530
+ vlan-aware-bundle CUSTOMER-{{ vlan_id }}
+ rd {{ leaf_ip }}:{{ vlan_id }}
+ route-target both 1:{{ vlan_id }}
+ redistribute learned
+ vlan {{ vlan_id }}
