@@ -19,14 +19,26 @@ interface loopback1
  description VXLAN Source
 
 vlan 4093
-name MLAG-iBGP-PEER
+ name MLAG-iBGP-PEER
+ trunk group MLAG-PEER
 
 interface vlan4093
  ip address {{ mlag }}
 
 interface Ethernet8
- switchport mode access
- switchport access vlan 4093
+ channel-group 2000 mode active
+
+interface Port-channel 2000
+ switchport mode trunk
+ switchport trunk group MLAG-PEER
+
+no spanning-tree vlan-id 4093
+
+mlag
+ local-interface vlan 4093
+ peer-address {% mlag_neigh %} 
+ pper-link port-channel 2000
+ doamin-id MLAG2000
 
 interface Vxlan1
  vxlan source-interface Loopback1
