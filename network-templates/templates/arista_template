@@ -36,9 +36,9 @@ no spanning-tree vlan-id 4093
 
 mlag
  local-interface vlan 4093
- peer-address {% mlag_neigh %} 
- pper-link port-channel 2000
- doamin-id MLAG2000
+ peer-address {{ mlag_neigh }} 
+ peer-link port-channel 2000
+ domain-id MLAG2000
 
 interface Vxlan1
  vxlan source-interface Loopback1
