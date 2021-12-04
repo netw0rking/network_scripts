@@ -1,10 +1,11 @@
+#!/usr/bin/env python
 from jinja2 import Environment, FileSystemLoader
 import pynetbox
 import sys
 import os
 
-if len(sys.argv) <= 1:
-    print("Use: /base_config.py hostname")
+if len(sys.argv) < 2:
+    print("Use: ./arista_base_config.py {hostname}")
     quit()
 
 
