@@ -1,0 +1,26 @@
+system {
+    host-name {{ hostname }};
+    root-authentication {
+        encrypted-password "$1$StJ3p.n/$o5wgkF2Y2mUZ2tCMfdIEe1"; ## SECRET-DATA
+    }
+    services {
+        ssh {
+            protocol-version v2;
+        }
+    }
+}
+interfaces { {% for int,ip in intf.items() %}
+    {{ int }} {
+        unit 0 {
+            family inet {
+                address {{ ip }};
+            }
+        }
+    }
+    {% endfor %}
+}
+protocols {
+    lldp {
+        interface all;
+    }
+}
