@@ -16,8 +16,7 @@ interfaces { {% for int,ip in intf.items() %}
                 address {{ ip }};
             }
         }
-    }
-    {% endfor %}
+    } {% endfor %}
 }
 protocols {
     lldp {

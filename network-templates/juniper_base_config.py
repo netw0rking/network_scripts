@@ -13,7 +13,7 @@ def get_interfaces_ip(hostname):
     host_intfs = nb.dcim.interfaces.filter(device=hostname)
     intf_addrs = {}
     for intf in host_intfs:
-        if intf.connected_endpoint:
+        if intf.connected_endpoint and intf.count_ipaddresses:
             ip = nb.ipam.ip_addresses.get(device=hostname,interface=intf.name,family=4)
             intf_addrs[intf]=ip.address
         elif 'lo0' in intf.name:
