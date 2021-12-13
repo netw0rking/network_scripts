@@ -7,6 +7,9 @@ system {
         ssh {
             protocol-version v2;
         }
+        netconf {
+            ssh;
+        }
     }
 }
 interfaces { {% for int,ip in intf.items() %}
