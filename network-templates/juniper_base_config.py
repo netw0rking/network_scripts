@@ -27,14 +27,33 @@ def get_interfaces_ip(hostname):
     return intf_addrs
 
 
+def create_iso(hostname):
+    ip = nb.ipam.ip_addresses.get(device=hostname, interface="lo0", family=4)
+    if ip.address:
+        iso_list = []
+        no_dot = ip.address[:-3].replace(".", "")
+        if len(no_dot) < 12:
+            fill_in = 12 - len(no_dot)
+            new_ip = ("0" * fill_in) + no_dot
+        else:
+            new_ip = no_dot
+
+        for i in range(0, len(new_ip), 4):
+            iso_list.append(new_ip[i : i + 4])
+
+        iso = ".".join(iso_list)
+        return iso
+
+
 nb_url = os.environ.get("nb_url")
 nb_token = os.environ.get("nb_token")
 nb = pynetbox.api(url=nb_url, token=nb_token)
 
 hostname = sys.argv[1]
 int_ip = get_interfaces_ip(hostname)
+iso = create_iso(hostname)
 file_loader = FileSystemLoader("templates")
 env = Environment(loader=file_loader)
 template = env.get_template("junos_template")
-output = template.render(intf=int_ip, hostname=hostname)
+output = template.render(intf=int_ip, hostname=hostname, iso=iso)
 print(output)
