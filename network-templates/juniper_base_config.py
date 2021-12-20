@@ -38,8 +38,9 @@ def create_iso(hostname):
             new_ip = no_dot
 
         iso_list = [new_ip[i : i + 4] for i in range(0, len(new_ip), 4)]
-        iso = ".".join(iso_list)
-        return iso
+        sys_id = ".".join(iso_list)
+        iso_address = f'49.0002.{sys_id}.00'
+        return iso_address
 
 
 nb_url = os.environ.get("nb_url")

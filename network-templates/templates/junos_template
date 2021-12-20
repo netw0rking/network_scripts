@@ -17,12 +17,22 @@ interfaces { {% for int,ip in intf.items() %}
         unit 0 {
             family inet {
                 address {{ ip }};
-            }
+            } {% if 'lo0' in int|string %}
+            family iso {
+                address {{ iso }};
+            } {% endif %}
         }
     } {% endfor %}
 }
 protocols {
     lldp {
         interface all;
+    }
+    isis {
+        level 1 disable; {% for int in intf.keys() %} 
+        interface {{ int }}.0 {% if 'lo0' not in int|string %}
+            level 2 metric 1000; {% elif 'lo0' in int|string %}
+            passive; {% endif %}
+        } {% endfor %} 
     }
 }
