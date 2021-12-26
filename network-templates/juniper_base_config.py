@@ -9,10 +9,18 @@ if len(sys.argv) < 2:
     print("Use: ./juniper_base_config.py hostname")
     quit()
 
+def get_interface_description(hostname):
+    intf_desc = {}
+    intfs = nb.dcim.interfaces.filter(device=hostname)
+    for interface in intfs:
+        if interface.connected_endpoint:
+            intf_desc[interface] = interface.connected_endpoint['device']['display_name']
+    return intf_desc
+
 
 def get_interfaces_ip(hostname):
-    host_intfs = nb.dcim.interfaces.filter(device=hostname)
     intf_addrs = {}
+    host_intfs = nb.dcim.interfaces.filter(device=hostname)
     for intf in host_intfs:
         if intf.connected_endpoint and intf.count_ipaddresses:
             ip = nb.ipam.ip_addresses.get(
@@ -50,8 +58,9 @@ nb = pynetbox.api(url=nb_url, token=nb_token)
 hostname = sys.argv[1]
 int_ip = get_interfaces_ip(hostname)
 iso = create_iso(hostname)
+intf_desc = get_interface_description(hostname)
 file_loader = FileSystemLoader("templates")
 env = Environment(loader=file_loader)
 template = env.get_template("junos_template")
-output = template.render(intf=int_ip, hostname=hostname, iso=iso)
+output = template.render(intf=int_ip, hostname=hostname, iso=iso, intf_desc=intf_desc)
 print(output)

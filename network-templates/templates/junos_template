@@ -13,7 +13,8 @@ system {
     }
 }
 interfaces { {% for int,ip in intf.items() %}
-    {{ int }} {
+    {{ int }} { {% if intf_desc[int] %}
+        description {{ intf_desc[int] }} {% endif %}
         unit 0 {
             family inet {
                 address {{ ip }};
