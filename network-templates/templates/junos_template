@@ -14,7 +14,7 @@ system {
 }
 interfaces { {% for int,ip in intf.items() %}
     {{ int }} { {% if intf_desc[int] %}
-        description {{ intf_desc[int] }} {% endif %}
+        description {{ intf_desc[int] }}; {% endif %}
         unit 0 {
             family inet {
                 address {{ ip }};
@@ -31,7 +31,7 @@ protocols {
     }
     isis {
         level 1 disable; {% for int in intf.keys() %} 
-        interface {{ int }}.0 {% if 'lo0' not in int|string %}
+        interface {{ int }}.0 { {% if 'lo0' not in int|string %}
             level 2 metric 1000; {% elif 'lo0' in int|string %}
             passive; {% endif %}
         } {% endfor %} 
