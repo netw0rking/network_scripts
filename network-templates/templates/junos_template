@@ -3,6 +3,15 @@ system {
     root-authentication {
         encrypted-password "$1$StJ3p.n/$o5wgkF2Y2mUZ2tCMfdIEe1"; ## SECRET-DATA
     }
+    login {
+        user {{ user }} {
+            uid 2001;
+            class super-user;
+            authentication {
+                encrypted-password "$1$duCSvQd0$Gww2Bo4D4IF8bMu2hbhHe/";
+            }
+        }
+    }
     services {
         ssh {
             protocol-version v2;
