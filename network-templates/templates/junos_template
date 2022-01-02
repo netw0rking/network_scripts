@@ -34,6 +34,9 @@ interfaces { {% for int,ip in intf.items() %}
         }
     } {% endfor %}
 }
+routing-options {
+    autonomous-system 65100;
+}
 protocols {
     lldp {
         interface all;
