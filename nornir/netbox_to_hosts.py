@@ -1,13 +1,21 @@
 import pynetbox
+import os
 from pprint import pprint
 
-nb = pynetbox.api(url='http://100.64.1.226:8000',
-                  token='a11c6850a273edcdaccbab6d71f9fc0c2786e900')
+nb_url = os.getenv('nb_url')
+nb_token = os.getenv('nb_token')
+nb = pynetbox.api(
+    url=nb_url, token=nb_token
+)
 
-host_list = nb.dcim.devices.filter(site='juniper-lab')
+host_list = nb.dcim.devices.all()
 
-host_dict = {'ios': {},'juniper': {}}
-for hostname in host_list:
-    host = nb.dcim.devices.get(name=hostname)
-    host_plat = host['platform']['name']
-    if host_plat ==
+with open("hosts.yml", "w") as f:
+    f.write("---\n")
+    for host in host_list:
+        if host.primary_ip:
+            f.write(f"{host.name.upper()}:\n")
+            f.write(f"  hostname: {host.primary_ip.address[:-3]}\n")
+            f.write(
+                    f"  groups:\n    - {host.device_type.manufacturer.name.lower()}\n    - {host.site.name.lower().replace('-','_')}\n"
+            )
