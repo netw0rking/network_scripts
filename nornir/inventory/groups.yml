@@ -1,6 +1,24 @@
 ---
-ios_group:
-    platforms: 'ios'
+cisco:
+  platform: ios
+  username: admin
+  password: cisco
 
-junos_group:
-    platforms: 'junos'
+juniper:
+  platform: junos
+  username: wquizhpi
+  password: Juniper
+
+arista:
+  platform: eos
+  username: admin
+  password: arista-admin
+
+linux:
+  platform: linux
+  username: wquizhpi
+  connection_options:
+    netmiko:
+      extras:
+        use_keys: True
+        key_file: "~/.ssh/id_rsa"

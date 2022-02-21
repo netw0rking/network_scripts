@@ -14,6 +14,5 @@ with open("hosts.yml", "w") as f:
         if host.primary_ip:
             f.write(f"{host.name.upper().replace('-','_')}:\n")
             f.write(f"  hostname: {host.primary_ip.address[:-3]}\n")
-            f.write(
-                f"  groups:\n    - {host.device_type.manufacturer.name.lower()}\n    - {host.site.name.lower().replace('-','_')}\n"
-            )
+            f.write(f"  groups:\n    - {host.device_type.manufacturer.name.lower()}\n")
+            f.write(f"  data:\n    site: {host.site.name.lower().replace('-','_')}\n")
