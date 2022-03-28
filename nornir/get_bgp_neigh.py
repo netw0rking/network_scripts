@@ -2,7 +2,7 @@ from nornir import InitNornir
 from nornir_napalm.plugins.tasks import napalm_get
 from pprint import pprint
 
-nr = InitNornir(config_file='./inventory/config.yml', dry_run=True)
+nr = InitNornir(config_file='./config.yml', dry_run=True)
 
 sw_output = nr.run(task=napalm_get, getters=['facts', 'get_bgp_neighbors'])
 
